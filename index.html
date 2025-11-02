@@ -620,36 +620,48 @@
       outline: none;
     }
 
-    /* Contact form adjustments for mobile-friendly scrolling */
+    /* Contact Panel & Form Responsive Styling */
     #contact {
       position: relative;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
       padding: 20px;
-      max-height: 100vh;
-      /* fit viewport */
+      min-height: 600px;
+      /* ensures panel isn't too small */
+      height: 150vh;
+      /* fill full viewport height */
       overflow: hidden;
+      /* hide overflow outside panel */
+      box-sizing: border-box;
     }
 
     #contact form {
-      max-height: 80vh;
-      /* allow scrolling inside form */
-      overflow-y: auto;
+      flex: 1 1 auto;
+      /* allow form to grow inside panel */
+      max-height: calc(100vh - 40px);
+      /* fit inside panel with padding */
+      width: 100%;
       display: flex;
       flex-direction: column;
       gap: 16px;
       align-items: center;
+      overflow-y: auto;
+      /* scroll if form content exceeds height */
       padding-right: 8px;
       /* prevent scrollbar overlay */
       scroll-behavior: smooth;
+      box-sizing: border-box;
     }
 
     #contact .form-group {
+      width: 100%;
+      max-width: 350px;
       flex-shrink: 0;
-      /* prevent shrinking when keyboard opens */
+      /* prevent shrinking on keyboard open */
     }
 
+    /* Mobile adjustments */
     @media (max-width: 900px) {
 
       #contact input,
@@ -657,6 +669,14 @@
       #contact select {
         font-size: 1rem;
       }
+    }
+
+    /* Optional: smooth scroll to focused input on mobile */
+    #contact-form input:focus,
+    #contact-form textarea:focus,
+    #contact-form select:focus {
+      scroll-margin-top: 80px;
+      /* adjust scroll position for sticky nav */
     }
 
     #custom-success {
@@ -850,25 +870,53 @@
           <img class="icon" src="https://cdn-icons-png.flaticon.com/512/2899/2899584.png" alt="Autopilot Icon"
             loading="lazy">
           <h3>1️⃣ Put Your Growth on Autopilot 🧠</h3>
-          <p>RzyMar builds your brand while you rest, publishing automatically across LinkedIn, X, Instagram, TikTok,
-            and Facebook. Adapts your tone authentically for each platform and keeps your brand active — no missed
-            posts, no burnout.</p>
-          <p><strong>Example:</strong> You post a LinkedIn article. Instantly, RzyMar creates an X thread, designs an
-            Instagram carousel, and generates TikTok & Facebook video snippets.</p>
+          <p>RzyMar builds your brand while you rest.</p>
+          <ul>
+            <li>Publishes automatically across LinkedIn, X, Instagram, TikTok, Facebook</li>
+            <li>Adapts your tone authentically for each platform</li>
+            <li>Keeps your brand active — no missed posts, no burnout</li>
+          </ul>
+          <p><strong>Example:</strong> You post a LinkedIn article. Instantly, RzyMar:</p>
+          <ul>
+            <li>🐦 Creates an X thread</li>
+            <li>📸 Designs an Instagram carousel</li>
+            <li>🎬 Generates TikTok & Facebook video snippets</li>
+          </ul>
         </div>
         <div class="feature" tabindex="0">
           <img class="icon" src="https://cdn-icons-png.flaticon.com/512/2910/2910761.png" alt="Content Repurposing Icon"
             loading="lazy">
           <h3>2️⃣ Intelligent Content Repurposing 🔄</h3>
-          <p>Create once. Be everywhere. Turn a 10-min video into short Reels/TikToks with subtitles, hooks & hashtags.
-            Convert transcripts into LinkedIn articles, X threads, newsletters, and more.</p>
+          <p>Create once. Be everywhere.</p>
+          <ul>
+            <li>🎥 Video Repurposing: Turn a 10-min video into short Reels/TikToks with subtitles, hooks & hashtags</li>
+            <li>📝 Content Transformation: Convert transcripts into LinkedIn articles, X threads, newsletters</li>
+          </ul>
+          <p><strong>Example:</strong> 5 Lessons in Building a Personal Brand:</p>
+          <ul>
+            <li>🎥 TikTok clip highlighting Lesson #3</li>
+            <li>📝 LinkedIn summary post</li>
+            <li>📸 Instagram carousel with key quotes</li>
+            <li>🐦 Twitter thread of takeaways</li>
+          </ul>
         </div>
         <div class="feature" tabindex="0">
           <img class="icon" src="https://cdn-icons-png.flaticon.com/512/2910/2910737.png" alt="Lead Generation Icon"
             loading="lazy">
           <h3>3️⃣ AI-Driven Lead Generation 🤖</h3>
-          <p>Turn engagement into genuine opportunities automatically. Detects high-engagement users, flags warm
-            prospects, drafts personalised messages in your voice, and syncs with CRM.</p>
+          <p>Turn engagement into genuine opportunities automatically.</p>
+          <ul>
+            <li>Monitor & Track: Detects high-engagement users in real time</li>
+            <li>Identify Leads: Flags warm prospects across platforms</li>
+            <li>Engage & Convert: Drafts personalized messages in your voice, syncs with CRM</li>
+            <li>Optimize Growth: Learns which audiences respond best</li>
+          </ul>
+          <p><strong>Example:</strong> A user interacts on LinkedIn, TikTok & Instagram →</p>
+          <ul>
+            <li>✅ Identified as warm lead</li>
+            <li>✉️ Personalized outreach drafted</li>
+            <li>💾 Added to CRM/email list</li>
+          </ul>
         </div>
       </div>
     </section>
@@ -923,7 +971,7 @@
     <!-- Combined Panels -->
     <section class="combined-panel">
       <!-- Contact Us Panel -->
-      <div class="panel combined-box" id="contact" tabindex="0" style="position:relative;">
+      <div class="panel combined-box" id="contact" tabindex="0">
         <img src="https://degroote.mcmaster.ca/wp-content/uploads/sites/97/2024/06/In-the-News-AI-call-centre.png"
           alt="AI Futuristic Contact Illustration" loading="lazy">
         <h2>Contact Us 📩</h2>
