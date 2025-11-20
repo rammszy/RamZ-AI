@@ -304,25 +304,56 @@
     }
 
     @media (max-width: 650px) {
+      /* Stack nav vertically but allow the links area to wrap or scroll
+         horizontally when there are many items. Reduce padding and sizes to
+         prevent overflow on typical phones/tablets. */
       nav {
         flex-direction: column;
         align-items: stretch;
-        padding: 5px 0;
+        padding: 6px 8px;
+        height: auto;
       }
 
       .nav-links {
-        flex-direction: row;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
         justify-content: center;
-        gap: 6px;
-        margin-bottom: 6px;
+        align-items: center;
+        margin: 6px 0 8px 0;
+        padding: 6px 4px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* firefox */
+      }
+      .nav-links::-webkit-scrollbar { display: none; }
+
+      nav a {
+        white-space: nowrap;
+        padding: 6px 10px;
+        font-size: 1rem;
+        margin: 0 4px;
       }
 
       #theme-toggle {
-        margin: 0 auto 5px auto;
+        margin: 0 6px 6px auto;
         width: 36px;
         height: 36px;
-        font-size: 1.1rem;
+        font-size: 1.05rem;
       }
+    }
+
+    /* Broader tablet breakpoint: allow wrapping & reduced spacing to avoid
+       horizontal overflow on medium-width tablets */
+    @media (max-width: 900px) {
+      .nav-links {
+        gap: 10px;
+        padding: 6px 6px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      nav a { font-size: 1rem; padding: 6px 8px; }
+      nav { padding: 8px 12px; }
     }
 
     .container {
