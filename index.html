@@ -1062,6 +1062,29 @@
       .combined-panel h2 { font-size: 1rem; }
     }
 
+    /* Ensure CTAs can wrap and flex items can shrink on tablets/phones so
+       long CTA text (e.g. 'intelligent, human way') is visible. */
+    @media (max-width: 900px) {
+      .combined-panel>div { min-width: 0; }
+      .cta, .neon-btn {
+        white-space: normal;
+        word-break: break-word;
+        max-width: 100%;
+        align-self: center;
+        padding: 10px 14px;
+        font-size: 0.98rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .combined-panel>div { min-width: 0; }
+      .cta, .neon-btn {
+        min-width: 0;
+        padding: 8px 12px;
+        font-size: 0.95rem;
+      }
+    }
+
     /* Ensure anchored elements are visible below the fixed nav */
     main [id], .panel[id] { scroll-margin-top: 92px; }
 
