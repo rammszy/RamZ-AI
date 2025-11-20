@@ -525,8 +525,11 @@
       border-radius: 0;
     }
 
-    @media(max-width:700px) {
+    @media (max-width:700px) {
 
+      /* Make table transform into a stacked, label/value layout while keeping
+         labels readable and values wrapping nicely. Adjusted label width and
+         paddings to avoid clipping on most phones/tablets. */
       table,
       thead,
       tbody,
@@ -535,6 +538,7 @@
       td {
         display: block;
         width: 100%;
+        box-sizing: border-box;
       }
 
       thead tr {
@@ -543,29 +547,52 @@
         left: -9999px;
       }
 
+      /* Each logical row becomes a compact card-like block */
       tr {
-        margin: 0 0 20px 0;
+        margin: 0 0 14px 0;
+        padding: 10px 12px;
+        background: var(--panel-bg);
+        border-radius: 10px;
+        box-shadow: none;
+        overflow: hidden;
       }
 
       td {
         border: none;
         position: relative;
-        padding-left: 52%;
-        min-height: 47px;
+        /* leave space on the left for the label */
+        padding-left: 42%;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        min-height: 44px;
+        overflow-wrap: anywhere;
+        word-break: break-word;
       }
 
+      /* Label shown on the left of each cell; reduced width so long values
+         wrap without pushing the label off-screen. */
       td:before {
         position: absolute;
-        top: 0;
-        left: 10px;
-        width: 50%;
-        padding-right: 18px;
-        white-space: nowrap;
+        top: 12px;
+        left: 12px;
+        width: 38%;
+        padding-right: 10px;
+        white-space: normal;
         color: var(--table-th-color);
-        font-weight: 600;
+        font-weight: 700;
         font-size: 0.98rem;
+        line-height: 1.2;
         content: attr(data-label);
       }
+
+      /* Make the value (the actual cell content) start below the label on
+         very narrow screens for better readability */
+      td > * {
+        display: block;
+      }
+
+      /* Slightly smaller text to avoid overflow on smallest devices */
+      table, th, td { font-size: 0.96rem; }
     }
 
     .cta,
