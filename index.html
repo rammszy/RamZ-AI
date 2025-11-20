@@ -952,6 +952,43 @@
         object-fit: cover;
       }
 
+      /* Ensure combined panels (Grow Smarter / Contact) show content fully on
+         smaller screens: remove forced overflow hiding, reduce paddings and
+         cap image height so text remains visible without clipping. */
+      .panel {
+        overflow: visible;
+        min-height: auto;
+      }
+
+      .combined-panel {
+        margin: 24px auto;
+        padding: 8px 6px 0 6px;
+      }
+
+      .combined-panel>div {
+        padding: 14px 12px;
+        align-items: stretch;
+      }
+
+      .combined-panel img {
+        max-height: 160px;
+        height: auto;
+        width: 100%;
+        object-fit: cover;
+      }
+
+      .combined-panel h2 {
+        font-size: 1.15rem;
+        margin-top: 8px;
+        color: var(--neon-cyan);
+      }
+
+      .combined-panel p {
+        color: var(--text-muted);
+        font-size: 0.98rem;
+        line-height: 1.45;
+      }
+
       /* Relax contact panel sizing on small screens */
       #contact {
         min-height: auto;
@@ -1019,7 +1056,10 @@
       .combined-panel img {
         height: auto;
         max-width: 100%;
+        max-height: 140px;
       }
+      .combined-panel>div { padding: 10px 8px; }
+      .combined-panel h2 { font-size: 1rem; }
     }
 
     /* Ensure anchored elements are visible below the fixed nav */
