@@ -645,6 +645,7 @@
       gap: 32px;
       flex-wrap: wrap;
       justify-content: center;
+      align-items: flex-start;
       padding: 40px 0 0 0;
       max-width: 1200px;
       margin: 60px auto;
@@ -713,10 +714,8 @@
       flex-direction: column;
       justify-content: flex-start;
       padding: 20px;
-      min-height: 600px;
-      /* ensures panel isn't too small */
-      height: 150vh;
-      /* fill full viewport height */
+      min-height: 520px;
+      /* reasonable minimum so content fits */
       overflow: hidden;
       /* hide overflow outside panel */
       box-sizing: border-box;
@@ -878,6 +877,47 @@
         padding: 0 0 0 0;
       }
 
+      /* Mobile: make combined panels stack fully and images use full width */
+      .combined-panel {
+        align-items: stretch;
+      }
+
+      .combined-panel>div {
+        align-items: stretch;
+      }
+
+      .combined-panel img {
+        max-width: 100%;
+        width: 100%;
+        height: auto;
+        margin-bottom: 12px;
+        object-fit: cover;
+      }
+
+      /* Relax contact panel sizing on small screens */
+      #contact {
+        min-height: auto;
+        height: auto;
+        overflow: visible;
+        padding-bottom: 30px;
+      }
+
+      /* Form should flow naturally on small viewports */
+      #contact form {
+        max-height: none;
+      }
+
+      /* Smaller image footprints for pricing cards on mobile */
+      .pricing .card img {
+        height: 140px;
+      }
+
+      /* Slightly smaller feature icons on narrow screens */
+      .features-grid .feature img.icon {
+        width: 56px;
+        height: 56px;
+      }
+
       table,
       .panel,
       .pricing,
@@ -906,11 +946,21 @@
       .panel,
       .combined-panel>div {
         padding: 8px !important;
+        align-items: stretch;
       }
 
       .features-grid,
       .pricing {
         gap: 12px;
+      }
+
+      /* Make pricing and combined images even smaller on very small screens */
+      .pricing .card img {
+        height: 120px;
+      }
+      .combined-panel img {
+        height: auto;
+        max-width: 100%;
       }
     }
 
@@ -956,6 +1006,7 @@
       line-height: 1.45;
     }
   </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
