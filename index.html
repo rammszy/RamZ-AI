@@ -4,12 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RzyMar AI</title>
+  <title>RamZ AI</title>
   <meta name="description"
-    content="RzyMar AI: Automate your content, grow smarter, and generate leads effortlessly with advanced AI tools.">
-  <meta property="og:title" content="RzyMar AI - Your Growth Partner">
+    content="RamZ AI: Automate your content, grow smarter, and generate leads effortlessly with advanced AI tools.">
+  <meta property="og:title" content="RamZ AI - Your Growth Partner">
   <meta property="og:description"
-    content="Automate your content, grow smarter, and generate leads effortlessly with RzyMar AI.">
+    content="Automate your content, grow smarter, and generate leads effortlessly with RamZ AI.">
   <meta property="og:image"
     content="https://images.unsplash.com/photo-1593642634315-48f5414c3ad9?auto=format&fit=crop&w=800&h=450&q=80">
   <meta property="og:type" content="website">
@@ -40,6 +40,7 @@
       --table-td-bg: rgba(0, 0, 0, 0.43);
       --table-td-color: #b2fff0;
       --table-border: #00fff0;
+      --nav-height: 72px;
     }
 
     html[data-theme="light"] {
@@ -207,21 +208,26 @@
     }
 
     .hero img {
+      display: block;
       width: 100%;
       max-width: 700px;
       margin: 28px auto 0 auto;
       border-radius: var(--border-radius);
       box-shadow: 0 10px 30px rgba(0, 255, 240, 0.27);
-      display: block;
+      height: auto;
+      object-fit: cover;
     }
 
     nav {
       position: fixed;
       top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-height);
       width: 100%;
       background: rgba(0, 0, 0, 0.85);
       border-bottom: 2px solid var(--neon-cyan);
-      z-index: 1000;
+      z-index: 99999;
       padding: 10px 0 6px 0;
       display: flex;
       align-items: center;
@@ -324,6 +330,8 @@
       margin: 30px auto 0 auto;
       padding: 0 20px;
     }
+      /* ensure main content doesn't sit under fixed nav */
+      main { padding-top: var(--nav-height); }
 
     #particle-canvas {
       position: fixed;
@@ -335,7 +343,8 @@
       pointer-events: none;
     }
 
-    body>*:not(#particle-canvas) {
+    /* keep the nav fixed above other content: exclude nav from this stacking rule */
+    body > *:not(#particle-canvas):not(nav) {
       position: relative;
       z-index: 1;
     }
@@ -384,6 +393,72 @@
       font-size: 1.03rem;
     }
 
+    .feature-lead {
+      font-weight: 600;
+      color: var(--text-light);
+      margin: 6px 0 12px 0;
+    }
+
+    .example {
+      margin-top: 12px;
+      font-weight: 700;
+      color: var(--neon-cyan);
+    }
+
+    .example-list {
+      margin: 8px auto 0 auto;
+      padding-left: 1.05rem;
+      max-width: 520px;
+      text-align: left;
+      list-style: disc;
+    }
+
+    /* Decorative check icon for feature & example list items */
+    .feature-list li,
+    .example-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .feature-list li::before,
+    .example-list li::before {
+      content: '';
+      flex: 0 0 18px;
+      width: 18px;
+      height: 18px;
+      margin-top: 4px;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300fff0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M20 6L9 17l-5-5'/></svg>");
+      background-size: contain;
+      background-repeat: no-repeat;
+      transform-origin: center center;
+      opacity: 0;
+      transform: scale(0.75) translateY(2px);
+      animation: iconPop 420ms cubic-bezier(.2,.9,.2,1) forwards;
+    }
+
+    /* Stagger icons for a subtle cascading effect */
+    .feature-list li:nth-child(1)::before, .example-list li:nth-child(1)::before { animation-delay: 40ms; }
+    .feature-list li:nth-child(2)::before, .example-list li:nth-child(2)::before { animation-delay: 120ms; }
+    .feature-list li:nth-child(3)::before, .example-list li:nth-child(3)::before { animation-delay: 200ms; }
+    .feature-list li:nth-child(4)::before, .example-list li:nth-child(4)::before { animation-delay: 280ms; }
+
+    @keyframes iconPop {
+      0% { opacity: 0; transform: scale(0.75) translateY(2px); }
+      60% { opacity: 1; transform: scale(1.08) translateY(0); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* Respect user preference for reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .feature-list li::before,
+      .example-list li::before {
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
+    }
+
     .features-grid .feature img.icon {
       width: 70px;
       height: 70px;
@@ -391,6 +466,10 @@
       filter: drop-shadow(0 0 16px var(--neon-cyan));
       border-radius: 18px;
       animation: glow 2.5s infinite alternate;
+      object-fit: cover;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .features-grid .feature h3 {
@@ -418,11 +497,6 @@
       text-align: left;
       border: none;
       font-family: var(--font-main);
-      font-size: 1.14rem;
-      word-break: break-word;
-    }
-
-    th {
       background: var(--table-th-bg);
       color: var(--table-th-color);
       font-weight: 700;
@@ -496,38 +570,43 @@
 
     .cta,
     .neon-btn {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
       margin-top: 15px;
-      padding: 14px 34px;
+      min-width: 220px;
+      height: 52px;
+      padding: 0 28px;
       background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple), var(--neon-blue));
       color: var(--bg-color);
       font-weight: 700;
       letter-spacing: 0.5px;
       border: none;
-      border-radius: 14px;
+      border-radius: 12px;
       box-shadow: 0 0 20px rgba(0, 255, 240, 0.18);
-      transition: all 0.18s cubic-bezier(.59, 0, .45, 1);
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
       text-decoration: none;
-      animation: ctaGlow 2.2s infinite alternate;
-      font-size: 1.12rem;
+      font-size: 1.04rem;
       outline: none;
       cursor: pointer;
+      box-sizing: border-box;
     }
 
     .cta:hover,
     .cta:focus,
     .neon-btn:hover,
     .neon-btn:focus {
-      transform: scale(1.055) translateY(-3px);
-      box-shadow: 0 0 35px rgba(0, 255, 240, 0.7);
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 10px 30px rgba(0, 255, 240, 0.28), 0 0 40px var(--neon-cyan);
       color: var(--white);
       outline: 2px solid var(--neon-blue);
     }
 
     .cta:active,
     .neon-btn:active {
-      filter: brightness(0.93);
-      transform: scale(0.97);
+      transform: translateY(-1px) scale(0.995);
+      filter: brightness(0.96);
     }
 
     .pricing {
@@ -545,8 +624,9 @@
     }
 
     .pricing .card img {
+      display: block;
       width: 100%;
-      max-height: 180px;
+      height: 180px;
       object-fit: cover;
       border-radius: 12px;
       margin-bottom: 15px;
@@ -576,13 +656,19 @@
       padding: 32px 22px 27px 22px;
       font-size: 1.04rem;
       margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .combined-panel img {
-      width: 90%;
+      display: block;
+      width: 100%;
       max-width: 380px;
+      height: 220px;
+      object-fit: cover;
       margin-bottom: 10px;
-      border-radius: 16px;
+      border-radius: 12px;
       box-shadow: 0 10px 20px rgba(0, 255, 240, 0.18);
     }
 
@@ -639,19 +725,13 @@
     /* Contact Us Panel Image */
     #contact img {
       display: block;
-      /* allows margin auto centering */
       margin: 0 auto 20px auto;
-      /* top 0, bottom 20px, auto left/right */
-      width: 90%;
-      /* scales with panel width */
-      max-width: 400px;
-      /* prevents it from being too large */
-      height: auto;
-      /* maintains aspect ratio */
-      border-radius: 16px;
-      /* rounded corners */
+      width: 100%;
+      max-width: 380px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 12px;
       box-shadow: 0 10px 20px rgba(0, 255, 240, 0.18);
-      /* subtle glow/shadow */
     }
 
 
@@ -804,6 +884,14 @@
       .features-grid {
         font-size: 0.97rem;
       }
+      /* Make CTA buttons responsive on smaller screens */
+      .cta,
+      .neon-btn {
+        min-width: 160px;
+        height: 46px;
+        padding: 0 18px;
+        font-size: 1rem;
+      }
     }
 
     @media(max-width:600px) {
@@ -825,6 +913,48 @@
         gap: 12px;
       }
     }
+
+    /* Ensure anchored elements are visible below the fixed nav */
+    main [id], .panel[id] { scroll-margin-top: 92px; }
+
+    /* Footer and list alignment improvements */
+    footer {
+      text-align: center;
+      padding: 18px 0 36px 0;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      background: transparent;
+    }
+
+    /* Feature cards: keep overall card centered but make lists readable by left-aligning and limiting width */
+    .features-grid .feature ul {
+      text-align: left;
+      list-style: disc;
+      margin: 12px auto 0 auto;
+      padding-left: 1.05rem;
+      max-width: 520px;
+      display: block;
+    }
+
+    .features-grid .feature ul li {
+      margin-bottom: 8px;
+      line-height: 1.45;
+    }
+
+    /* Pricing cards: use inline checkmarks (already present) and remove default bullets for a cleaner look */
+    .pricing .card ul {
+      list-style: none;
+      margin: 12px 0 0 0;
+      padding: 0;
+      text-align: left;
+      display: inline-block;
+    }
+
+    .pricing .card ul li {
+      margin-bottom: 8px;
+      padding-left: 0.2rem;
+      line-height: 1.45;
+    }
   </style>
 </head>
 
@@ -832,8 +962,12 @@
   <canvas id="particle-canvas"></canvas>
   <nav aria-label="Main Navigation">
     <div class="nav-links">
-      <a href="#features">Features</a>
+      <a href="#hero">Home</a>
+      <a href="#introduction">Introduction</a>
+      <a href="#challenges">Challenges</a>
+      <a href="#growth">Our Solution</a>
       <a href="#pricing">Pricing</a>
+      <a href="#why">Why RamZ</a>
       <a href="#contact">Contact</a>
     </div>
     <button id="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle dark/light mode">
@@ -843,100 +977,107 @@
   <main>
     <!-- Hero Section -->
     <section class="hero container" id="hero">
-      <div class="hero-title">RzyMar AI</div>
+      <div class="hero-title">RamZ AI</div>
       <div class="hero-subtitle"><em>Your Growth Partner That Never Sleeps</em></div>
-      <div class="hero-intro">
+      <div class="hero-intro" id="introduction">
         <p class="hero-lead">Grow Smarter. Sleep Better. Amplify Effortlessly.</p>
-        <p class="hero-desc">RzyMar AI isn’t just automation — it’s evolution. It’s your always-on growth partner that
+        <p class="hero-desc">RamZ AI isn’t just automation — it’s evolution. It’s your always-on growth partner that
           learns your voice, connects every platform, and turns your ideas into consistent, measurable growth. You focus
-          on your vision — RzyMar handles the rest. 🚀</p>
+          on your vision — RamZ handles the rest. 🚀</p>
       </div>
       <img src="https://images.unsplash.com/photo-1593642634315-48f5414c3ad9?auto=format&fit=crop&w=800&h=450&q=80"
         alt="AI Growth Concept" loading="lazy">
     </section>
     <!-- Features Section -->
     <section class="container panel" id="features">
-      <h2>❌ Problems We Solve</h2>
+      <h2 id="challenges">❌ The Challenges RamZ Solves</h2>
       <table>
         <thead>
           <tr>
             <th>Problem</th>
             <th>Impact</th>
+            <th>RamZ Solution</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td data-label="Problem">⏰ Time-consuming multi-platform posting</td>
-            <td data-label="Impact">Hours lost each week managing LinkedIn, X, Instagram, TikTok, Facebook</td>
+            <td>⏰ Multi-platform posting is time-consuming</td>
+            <td>Hours lost manually posting across LinkedIn, X, Instagram, TikTok, and Facebook</td>
+            <td>Automated publishing with optimized scheduling</td>
           </tr>
           <tr>
-            <td data-label="Problem">🌀 Inconsistent branding & tone</td>
-            <td data-label="Impact">Reduces credibility and engagement</td>
+            <td>🌀 Inconsistent brand voice</td>
+            <td>Weakens credibility and engagement</td>
+            <td>Learns your unique voice and adapts it to each platform</td>
           </tr>
           <tr>
-            <td data-label="Problem">💔 Missed lead opportunities</td>
-            <td data-label="Impact">Manual tracking is slow and inefficient</td>
+            <td>💔 Missed lead opportunities</td>
+            <td>Engagement goes untracked, losing prospects</td>
+            <td>Real-time tracking and automatic warm lead identification</td>
           </tr>
           <tr>
-            <td data-label="Problem">🔄 Content repurposing hassles</td>
-            <td data-label="Impact">Turning one post into multiple formats is tedious</td>
+            <td>🔄 Content repurposing is tedious</td>
+            <td>One idea must be manually transformed into multiple formats</td>
+            <td>Intelligent content repurposing: articles, threads, carousels, Reels, and more</td>
           </tr>
         </tbody>
       </table>
-      <h2>💡 Our Solution: RzyMar AI</h2>
+      <p style="text-align:center;margin-top:25px;">RamZ eliminates these obstacles — helping you grow your brand without burnout.</p>
+      <h2 id="growth">💡 Our Solution: RamZ AI</h2>
       <div class="features-grid">
-        <div class="feature" tabindex="0">
+        <article class="feature" tabindex="0" role="region" aria-labelledby="feature-1-title">
           <img class="icon" src="https://cdn-icons-png.flaticon.com/512/2899/2899584.png" alt="Autopilot Icon"
             loading="lazy">
-          <h3>1️⃣ Put Your Growth on Autopilot 🧠</h3>
-          <p>RzyMar builds your brand while you rest.</p>
-          <ul>
-            <li>Publishes automatically across LinkedIn, X, Instagram, TikTok, Facebook</li>
+          <h3 id="feature-1-title">Put Your Growth on Autopilot</h3>
+          <p class="feature-lead">RamZ builds your brand while you rest.</p>
+          <ul class="feature-list">
+            <li>Publishes automatically across LinkedIn, X, Instagram, TikTok, and Facebook</li>
             <li>Adapts your tone authentically for each platform</li>
             <li>Keeps your brand active — no missed posts, no burnout</li>
           </ul>
-          <p><strong>Example:</strong> You post a LinkedIn article. Instantly, RzyMar:</p>
-          <ul>
-            <li>🐦 Creates an X thread</li>
-            <li>📸 Designs an Instagram carousel</li>
-            <li>🎬 Generates TikTok & Facebook video snippets</li>
+          <p class="example"><strong>Example:</strong></p>
+          <ul class="example-list">
+            <li>Creates an X thread from a long-form post</li>
+            <li>Designs an Instagram carousel with key quotes</li>
+            <li>Generates short video snippets for TikTok & Facebook</li>
           </ul>
-        </div>
-        <div class="feature" tabindex="0">
+        </article>
+
+        <article class="feature" tabindex="0" role="region" aria-labelledby="feature-2-title">
           <img class="icon" src="https://cdn-icons-png.flaticon.com/512/2910/2910761.png" alt="Content Repurposing Icon"
             loading="lazy">
-          <h3>2️⃣ Intelligent Content Repurposing 🔄</h3>
-          <p>Create once. Be everywhere.</p>
-          <ul>
-            <li>🎥 Video Repurposing: Turn a 10-min video into short Reels/TikToks with subtitles, hooks & hashtags</li>
-            <li>📝 Content Transformation: Convert transcripts into LinkedIn articles, X threads, newsletters</li>
+          <h3 id="feature-2-title">Intelligent Content Repurposing</h3>
+          <p class="feature-lead">Create once. Be everywhere.</p>
+          <ul class="feature-list">
+            <li>Video repurposing: turn a long recording into multiple short clips with captions and hooks</li>
+            <li>Content transformation: convert transcripts into LinkedIn articles, X threads, and newsletters</li>
           </ul>
-          <p><strong>Example:</strong> 5 Lessons in Building a Personal Brand:</p>
-          <ul>
-            <li>🎥 TikTok clip highlighting Lesson #3</li>
-            <li>📝 LinkedIn summary post</li>
-            <li>📸 Instagram carousel with key quotes</li>
-            <li>🐦 Twitter thread of takeaways</li>
+          <p class="example"><strong>Example:</strong></p>
+          <ul class="example-list">
+            <li>TikTok clip highlighting one lesson</li>
+            <li>LinkedIn summary post</li>
+            <li>Instagram carousel with key quotes</li>
+            <li>Twitter/X thread of takeaways</li>
           </ul>
-        </div>
-        <div class="feature" tabindex="0">
+        </article>
+
+        <article class="feature" tabindex="0" role="region" aria-labelledby="feature-3-title">
           <img class="icon" src="https://cdn-icons-png.flaticon.com/512/2910/2910737.png" alt="Lead Generation Icon"
             loading="lazy">
-          <h3>3️⃣ AI-Driven Lead Generation 🤖</h3>
-          <p>Turn engagement into genuine opportunities automatically.</p>
-          <ul>
-            <li>Monitor & Track: Detects high-engagement users in real time</li>
-            <li>Identify Leads: Flags warm prospects across platforms</li>
-            <li>Engage & Convert: Drafts personalized messages in your voice, syncs with CRM</li>
-            <li>Optimize Growth: Learns which audiences respond best</li>
+          <h3 id="feature-3-title">AI‑Driven Lead Generation</h3>
+          <p class="feature-lead">Turn engagement into genuine opportunities automatically.</p>
+          <ul class="feature-list">
+            <li>Monitors engagement across platforms in real time</li>
+            <li>Identifies and flags warm prospects</li>
+            <li>Drafts personalized outreach in your voice and syncs with CRM</li>
+            <li>Optimizes which audiences respond best</li>
           </ul>
-          <p><strong>Example:</strong> A user interacts on LinkedIn, TikTok & Instagram →</p>
-          <ul>
-            <li>✅ Identified as warm lead</li>
-            <li>✉️ Personalized outreach drafted</li>
-            <li>💾 Added to CRM/email list</li>
+          <p class="example"><strong>Example:</strong></p>
+          <ul class="example-list">
+            <li>Identifies a warm lead active on LinkedIn, TikTok & Instagram</li>
+            <li>Drafts personalized outreach and adds contact to CRM</li>
           </ul>
-        </div>
+        </article>
       </div>
     </section>
     <!-- Pricing Section -->
@@ -1044,7 +1185,7 @@
       overflow:hidden;
     ">
           <div style="font-size:2.8rem; margin-bottom:10px;">✅ Success!</div>
-          <div>Your message has been sent to RzyMar AI.</div>
+          <div>Your message has been sent to RamZ AI.</div>
           <button id="send-another" style="
       margin-top:30px;
       padding:14px 34px;
@@ -1161,12 +1302,12 @@
       </script>
 
       <!-- Grow Smarter Panel -->
-      <div class="panel combined-box" tabindex="0">
+      <div class="panel combined-box" id="why" tabindex="0">
         <img
           src="https://images.squarespace-cdn.com/content/v1/54fbb611e4b0d7c1e151d22a/1493768157599-B8RYXE3FIIDB84KCTFYV/image-asset.jpeg?format=2500w"
           alt="Growth Illustration - Plant in Soil" loading="lazy">
         <h2>Grow Smarter. Sleep Better. Amplify Effortlessly.</h2>
-        <p>RzyMar AI doesn’t replace your creativity — it amplifies it. Your strategist, creative partner, and silent
+        <p>RamZ AI doesn’t replace your creativity — it amplifies it. Your strategist, creative partner, and silent
           growth engine — ensuring your ideas reach further, engage deeper, and convert faster.</p>
         <a href="#contact" class="cta">Start growing on autopilot — the intelligent, human way</a>
       </div>
@@ -1264,11 +1405,11 @@
       if (theme === 'light') {
         document.documentElement.setAttribute('data-theme', 'light');
         themeIcon.textContent = '🌑';
-        localStorage.setItem('rzymar_theme', 'light');
+        localStorage.setItem('RamZ_theme', 'light');
       } else {
         document.documentElement.removeAttribute('data-theme');
         themeIcon.textContent = '🌙';
-        localStorage.setItem('rzymar_theme', 'dark');
+        localStorage.setItem('RamZ_theme', 'dark');
       }
       updateParticleTheme();
     }
@@ -1277,7 +1418,7 @@
       setTheme(isLightNow ? 'dark' : 'light');
     });
     (function () {
-      let theme = localStorage.getItem('rzymar_theme');
+      let theme = localStorage.getItem('RamZ_theme');
       if (!theme) {
         theme = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark';
       }
@@ -1286,7 +1427,8 @@
 
     // Active nav highlight on scroll
     const navLinks = Array.from(document.querySelectorAll('.nav-links a'));
-    const sections = Array.from(document.querySelectorAll('main > section, .panel[id], .combined-panel'));
+    // include any element inside main that has an id (sections, headings, containers)
+    const sections = Array.from(document.querySelectorAll('main [id], .panel[id], .combined-panel'));
     function setActiveNav() {
       let scrollPos = window.scrollY + 90;
       let currentId = "";
@@ -1300,6 +1442,12 @@
     window.addEventListener('scroll', setActiveNav);
     window.addEventListener('DOMContentLoaded', setActiveNav);
   </script>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 RamZ AI. All rights reserved.</p>
+  </footer>
+  <script src="scripts.js" defer></script>
 </body>
 
 </html>
